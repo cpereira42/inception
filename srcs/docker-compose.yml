@@ -1,0 +1,69 @@
+version: '3'
+volumes:
+  mariadb:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/cpereira/data/mysql
+      o: bind
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/cpereira/data/wordpress
+      o: bind
+
+networks:
+  inception:
+    driver: bridge
+
+services:
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    build:
+      context: ./requirements/mariaDB/
+      dockerfile: Dockerfile
+      args:
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
+    restart: unless-stopped
+    volumes:
+    - mariadb:/var/lib/mysql
+    networks: 
+    - inception
+
+  wordpress:
+    image: wordpress
+    container_name: wordpress
+    depends_on:
+      - mariadb
+    build:
+      context: ./requirements/wordpress/
+      dockerfile: Dockerfile
+      args:
+        MYSQL_HOST: mariadb:3306
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    restart: unless-stopped
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - inception
+  
+  nginx:
+    image: nginx
+    container_name: nginx
+    depends_on:
+      - wordpress
+    build: ./requirements/nginx/
+    ports:
+      - "443:443"
+    restart: unless-stopped
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - inception
