@@ -9,7 +9,7 @@ RUN openssl genrsa -out /etc/nginx/ssl/server.key 2048
 RUN openssl req \
     -new -key /etc/nginx/ssl/server.key \
     -out /etc/nginx/ssl/server.csr -subj \
-    "/C=BR/ST=Sao Paulo/L=Sao Paulo/O=42/OU=Sao Paulo/CN=cpereira/emailAddress=cpereira@mail.com"
+    "/C=BR/ST=Sao Paulo/L=Sao Paulo/O=42/OU=Sao Paulo/CN=cpereira.42.fr/emailAddress=cpereira@mail.com"
 
 #ajusta a validade do certificado
 RUN openssl x509 -req -days 365 \
