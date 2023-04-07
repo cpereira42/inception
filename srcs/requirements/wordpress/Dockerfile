@@ -5,7 +5,7 @@ ARG MYSQL_USER
 ARG MYSQL_PASSWORD
 ARG MYSQL_HOST
 
-RUN apt update && apt install -y curl nano \
+RUN apt update && apt install -y curl \
     php7.3 php7.3-phar php7.3-fpm php7.3-opcache \
     php7.3-cli php7.3-gd php7.3-curl php7.3-mysql php7.3-mbstring
 
@@ -31,9 +31,6 @@ RUN sed -i "s/username_here/$MYSQL_USER/g" wp-config-sample.php  && \
 
 RUN mv wp-config-sample.php wp-config.php 
 
-
-
 EXPOSE 9000
 
-# Inicia php-fpm
 CMD ["php-fpm7.3", "-F" ]

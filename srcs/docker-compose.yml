@@ -1,21 +1,4 @@
 version: '3'
-volumes:
-  mariadb:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/cpereira/data/mysql
-      o: bind
-  wordpress:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/cpereira/data/wordpress
-      o: bind
-
-networks:
-  inception:
-    driver: bridge
 
 services:
   mariadb:
@@ -67,3 +50,21 @@ services:
       - wordpress:/var/www/wordpress
     networks:
       - inception
+      
+volumes:
+  mariadb:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/cpereira/data/mysql
+      o: bind
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/cpereira/data/wordpress
+      o: bind
+
+networks:
+  inception:
+    driver: bridge

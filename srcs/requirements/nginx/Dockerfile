@@ -11,7 +11,6 @@ RUN openssl req \
     -out /etc/nginx/ssl/server.csr -subj \
     "/C=BR/ST=Sao Paulo/L=Sao Paulo/O=42/OU=Sao Paulo/CN=cpereira.42.fr/emailAddress=cpereira@mail.com"
 
-#ajusta a validade do certificado
 RUN openssl x509 -req -days 365 \
     -in /etc/nginx/ssl/server.csr \
     -signkey /etc/nginx/ssl/server.key \
