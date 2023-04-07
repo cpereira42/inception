@@ -18,4 +18,3 @@ RUN service mysql start && mysql -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABA
 EXPOSE 3306
 
 CMD ["mysqld",  "--bind-address=0.0.0.0"]
-

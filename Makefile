@@ -21,5 +21,5 @@ fclean: down clean
 	@docker system prune -a --volumes
 	@sudo sed -i '/127.0.0.1 cpereira.42.fr/g' /etc/hosts
 	@sudo rm -rf /home/cpereira/data
-	
+
 .PHONY: all down clean fclean

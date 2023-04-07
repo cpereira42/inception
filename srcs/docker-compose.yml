@@ -36,7 +36,7 @@ services:
       - wordpress:/var/www/wordpress
     networks:
       - inception
-  
+
   nginx:
     image: nginx
     container_name: nginx
@@ -50,7 +50,7 @@ services:
       - wordpress:/var/www/wordpress
     networks:
       - inception
-      
+
 volumes:
   mariadb:
     driver: local
@@ -68,3 +68,4 @@ volumes:
 networks:
   inception:
     driver: bridge
+    
